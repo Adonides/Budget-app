@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./Images/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+    <title>Praticando</title>
+    <link rel="stylesheet" href="Budget05.css">
+    <script defer src="Budget05.js"></script>
+</head>
+<body>
+    <!------------------------NAVBAR-------------------------------->
+    <nav class="navbar">
+        <div class="logo">
+            <p>
+                <a href="#">
+                    <img src="./Images/logo-32x32.png" alt="Logo WeB Projests">
+                    WeB.ProJEct$
+                </a>
+            </p>
+        </div>
+        <a href="#" class="toggle-bar" onclick="toggleBtn()">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </a>
+        <div class="navbar-list">
+            <ul>
+                <li>
+                    <a href="#statement" rel="next">Top</a>
+                </li>
+                <li>
+                    <a href="#transfer" rel="next">Transactions</a>
+                </li>
+                <li>
+                    <a href="#about">About</a>
+                </li>
+                <li>
+                    <a href="#contact" rel="next">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!------------------------HEADER-------------------------------->
+    <header>
+        <h1>Budget</h1>
+    </header>
+    <!------------------------DISPLAY-------------------------------->
+    <main class="container">
+        <section id="statement">
+            <h2 class="sr-only">Balance</h2>
+                <div class="card">
+                    <h3>
+                        <span>Income</span>
+                        <img src="./Images/income.svg" alt="income icon">
+                    </h3>
+                    <p id="incomeDisplay">5.000,00</p>
+                </div>
+                <div class="card">
+                    <h3>
+                        <span>Expenses</span>
+                        <img src="./Images/expense.svg" alt="expense icon">
+                    </h3>
+                    <p id="expenseDisplay">3.000,00</p>
+                </div>
+                <div class="card total">
+                    <h3>
+                        <span>Total</span>
+                        <img src="./Images/total.svg" alt="total icon">
+                    </h3>
+                    <p id="totalDisplay">2.000,00</p>
+                </div>
+        </section>
+        <!------------------------MONTH-------------------------------->
+        <Section id="months">
+            <div class="transaction-month">
+                <h2 class="sr-only">Period</h2>
+                <h3>Period Of Transaction</h3>
+
+                <div id="month-list">
+                   <!-- <ul class="all-months">
+                        <li class="month active-month">January</li>
+                        <li class="month">Febrery</li>
+                        <li class="month">March</li>
+                    </ul> -->
+                </div>
+    
+                <form action="" id="month-form" class="form-month">
+                    <div class="input-month">
+                        <label for="period per month" class="sr-only">Period per Month</label>
+                        <input type="text" 
+                            id="month-input"
+                            class="new-month"
+                            placeholder="Ex: January 2000">
+                        <button class="btn-month" aria-label="add new month">+</button>
+                    </div>
+                </form>
+            </div>
+        </Section>   
+        <!------------------------MODAL-BTN-------------------------------->
+        <section id="transfer">
+            <h2 class="sr-only">
+                Transaction
+            </h2>
+
+            <div class="btns-new-delete">
+                <a href="#" class="new btn-transaction " onclick="Modal.open()">+ New Transaction</a>
+    
+                <a href="#" class="new delete-transactions" onclick="deleteMonth()">- Delete all Transactions</a>
+            </div>
+        <!------------------------TABELA-------------------------------->
+            <h3 class="month-table">May</h3>
+            <table id="data-table">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Value</th>
+                        <th>Date</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="description">Luz</td> <!--table data cell-->
+                        <td class="expense">- R$ 500,00</td>
+                        <td class="date">23/01/2021</td>
+                        <td>
+                            <img src="./Images/minus.svg" alt="delete button">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="description">Criação website</td>
+                        <td class="income">R$ 5.000,00</td>
+                        <td class="date">23/01/2021</td>
+                        <td>
+                            <img src="./Images/minus.svg" alt="delete button">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="description">Internet</td>
+                        <td class="expense">R$ 200,00</td>
+                        <td class="date">23/01/2021</td>
+                        <td>
+                            <img src="./Images/minus.svg" alt="delete button">
+                        </td>
+                    </tr>
+                        
+                </tbody>
+            </table>
+        </section>  
+    </main>
+    <!------------------------Modal-Overlay-Form---------------------->
+    <div class="modal-overlay">
+        <div class="modal">
+             <div id="form">
+                <h2>New Transaction</h2>
+                 <form action="" onsubmit="Form.submit(event)">
+
+                    
+
+                     <div class="input-group">
+                         <label for="description" class="sr-only">Description</label>
+                         <input 
+                         type="text" 
+                         id="description" 
+                         name="description"
+                         placeholder="Description">
+                     </div>
+
+                     <div class="input-group">
+                        <label class="sr-only"              for="amount">Value</label> 
+                        <input type="number" 
+                        step="0,01"
+                        id="amount" 
+                        name="amount"
+                        placeholder="0,00">
+                        <small>Use the - (minus) sign for expenses and ,(coma) to decimals</small>
+                     </div>
+
+                     <div class="input-group">
+                        <label class="sr-only"              for="date">Date</label> 
+                        <input type="date" 
+                        id="date" 
+                        name="date">
+                     </div>
+
+    <!-----------------------Modal-Overlay-Buttons----------------->
+                     <div class="input-group actions">
+                        <a href="#" onclick="Modal.close()" class="button cancel">Cancel</a>
+                        <button class="btn-submit">Submit</button>
+                     </div>
+                 </form>
+             </div>
+        </div>
+    </div>
+    <!------------------------ABOUT-------------------------------->
+    <section id="about">
+
+    </section>
+    <hr> <!------------------------CONTACT-------------------------------->
+    <section id="contact">
+
+    </section>
+    <!------------------------FOOTER-------------------------------->
+    <footer>
+        <p>
+            &copy;WeB.ProJEct$
+        </p>
+    </footer>
+    
+    
+</body>
+</html>  

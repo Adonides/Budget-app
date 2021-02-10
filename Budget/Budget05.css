@@ -1,0 +1,485 @@
+/*Global==============================================*/
+* { 
+    box-sizing: border-box;
+    margin: 0; 
+    padding: 0;
+} 
+
+:root {
+    --dark-green: #2d4a22;
+    --green: #12a454;
+    --light-green: #49AA26;
+    --dark-blue: #363f5f;
+    --red: #e92929;
+
+}
+
+html { 
+    font-size: 93.75%;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color:  rgb(221, 219, 219);
+    
+}
+
+.container {
+    width: min(90vw,800px);
+    margin: auto;
+}
+
+li, a {
+    list-style: none;
+    text-decoration: none;
+}
+
+/*NAVBAR==============================================*/
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 100;
+   
+    background-color: var(--dark-green);
+    color: white;
+}
+
+/*Logo==============================================*/
+.logo a {
+    font-size: 1.4rem;
+    color: white;
+    margin: 0.8rem;
+    margin-top: 1rem;
+    
+    
+}
+
+/*Lista==============================================*/
+.navbar-list ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar-list li:hover{
+    background-color: var(--light-green);
+}
+
+/*Links==============================================*/
+.navbar-list li a {
+    margin: 0.8rem;
+    color: white;
+    padding: 1rem;
+    display: block;
+}
+
+/*Toggle==============================================*/
+.toggle-bar {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+}
+
+.toggle-bar .bar {
+    height: 2px;
+    width: 100%;
+    border-radius: 12px;
+    background: white;
+}
+   
+/*TITLES==============================================*/
+h1 {
+    font-size: calc(4vw + 2rem);
+    text-align: center;
+    font-weight: 900;
+    letter-spacing: 10px;
+    margin-top: -1.3rem;
+    margin-bottom: 0.5rem;
+    color: rgb(0, 0, 0, 0.1)
+}
+
+h2{
+    margin-bottom: 0.5rem; 
+    font-weight: normal;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px; 
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/*CARDS==============================================*/
+.card {
+    background:white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.50rem;
+    margin-bottom: 2rem;
+    
+    color: var(--dark-blue);
+}
+
+.card h3 {
+    font-weight: normal;
+    font-size: 1rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+.card p {
+    font-size: 2rem;
+    margin-top: 1rem;
+    line-height: 3rem;
+}
+
+.card.total {
+    background: var(--light-green);
+    color: white;
+
+}
+
+/*MONTH OF TRANSACTION==============================================*/
+.transaction-month {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.transaction-month h3 {
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 0.10rem;
+    color: var(--dark-blue);
+}
+
+.all-months  {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin: 1rem;
+}
+
+.month {
+    list-style: circle;
+    margin-left: 1.5rem;
+    cursor: pointer;
+    color: var(--dark-blue);
+    transition: opacity 250ms ease-in;
+}
+
+.month:hover {
+    opacity: 0.5;
+    color: var(--dark-green);
+}
+
+.active-month {
+    font-weight: 700;
+    color: var(--light-green);
+}
+
+.form-month {
+    display: flex;
+}
+
+.input-month {
+    display: flex;
+    padding-bottom: 1.5rem;
+}
+
+.new-month {
+    outline: none;
+    order: 2;
+    
+}
+
+/*BUTTONS==============================================*/
+.btn-month {
+    cursor: pointer;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--dark-green);
+    background: 0;
+    border: 0;
+    transition: opacity 250ms ease-in;
+    margin-right: 0.3rem;
+}
+
+.btn-month:hover {
+    opacity: 0.5;
+}
+
+.btns-new-delete {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-transaction {
+    color: var(--dark-green);
+}
+
+.btn-transaction:hover {
+    color: var(--light-green);
+}
+
+.delete-transactions {
+    color: var(--red);
+    opacity: 0.6;
+}
+
+.delete-transactions:hover {
+    color: var(--red);
+    opacity: 1;
+}
+
+.button.new {
+    display: inline-block;
+    margin-bottom: 0.8rem;
+}
+
+
+/*Button.Form=====================*/
+.btn-submit {
+    width: 100%;
+    height: 50px;
+    
+    color:white;
+    background: var(--green);
+
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0;
+
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background: var(--light-green)
+}
+
+.button.cancel {
+    text-decoration: none;
+    color: var(--red);
+
+    border: 2px var(--red) solid;
+    border-radius: 0.25rem;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0.6;
+}
+
+.button.cancel:hover {
+    opacity: 1;
+}
+
+/*TABLES==============================================*/
+.month-table {
+    display: flex;
+    justify-content: center;
+    color: var(--light-green);
+    margin-left: -3rem;
+}
+
+#transfer {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+}
+
+#data-table {
+    width: 100%;
+    border-spacing: 0 0.5rem;
+    color: #969cb3;
+    
+    
+}
+
+table thead th {
+    background: white;
+    font-weight: normal;
+    padding: 1rem 2rem; 
+    color: var(--dark-blue);
+    text-align: left;
+}
+
+table tbody td {
+    background: white;
+    padding: 1rem 2rem; /*espaço da borda da celula*/
+}
+
+table tbody td img { /*centralizar sinal*/
+    margin-top: 0.5rem;
+    cursor: pointer;
+}
+
+table tbody tr {
+    opacity: 0.7;
+}
+
+table tbody tr:hover {
+    opacity: 1;
+    color: var(--dark-blue);
+}
+
+table thead tr th:first-child, /*curva nas primeiras celulas*/
+table tbody tr td:first-child {
+    border-radius: 0.25rem 0 0 0.25rem;
+}
+
+table thead tr th:last-child, /*curva nas útimas celulas*/
+table tbody tr td:last-child {
+    border-radius: 0 0.25rem 0.25rem 0;
+}
+
+td.description {
+    color: var(--dark-blue);
+}
+
+td.expense {
+    color: var(--red);
+}
+
+td.income {
+    color: var(--green);
+}
+
+/*MODAL==============================================*/
+.modal-overlay {
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.7);
+
+    position: fixed;
+    top: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    visibility: hidden;
+
+    z-index: 999;
+}
+
+.modal {
+    background: #F0F2f5;
+    padding: 2.4rem;
+    position: relative;
+
+    z-index: 1;
+}
+
+.modal-overlay.active-modal {
+    opacity: 1;
+    visibility: visible;
+}
+
+/*FORM==============================================*/
+#form {
+    max-width: 500px;
+}
+
+form h2 {
+    margin-top: 0;
+    font-weight: 400;
+    color: var(--dark-blue);
+}
+
+input {
+    border: 0;
+    border-radius: 0.2rem;
+
+    padding: 0.8rem;
+
+    width: 100%;
+}
+
+.input-group {
+    margin-top: 0.8rem;
+}
+
+.input-group small {
+    opacity: 0.4;
+}
+
+/*Button.Form==============================================*/
+.input-group.actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-group.actions .button,
+.input-group.actions button {
+    width: 48%;
+}
+
+/*FOOTER==============================================*/
+footer {
+    text-align: center;
+    color: var(--dark-blue);
+    opacity: 0.6;
+    margin: 1.5rem;
+}
+
+/*RESPONSIVE.header==============================================*/
+@media(max-width: 625px) {
+    .toggle-bar {
+        display: flex;
+    }
+
+    .navbar {
+        flex-direction: column;
+    }
+
+    .logo {
+        margin-top: 0.5rem;
+    }
+
+    .navbar-list {
+        display: none;
+    }
+
+    .navbar-list li a {
+        padding: 0.5rem 0.5rem;
+        margin-left: 1rem;
+    }
+
+    .navbar-list.active {
+        display: flex;
+    }
+
+}
+
+/*RESPONSIVE.body==============================================*/
+@media (min-width: 625px) {
+    html {
+        font-size: 87.5%;
+    }
+
+    #statement {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 2rem;
+    }
+}
