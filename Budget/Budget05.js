@@ -19,22 +19,6 @@ const Modal = {
 }
 
 /*Display==========================================*/
-const transactions = [{
-    id: 1,
-    description: 'Luz',
-    amount: -50000,
-    date: '09/02/2021'
-},{
-    id: 2,
-    description: 'website',
-    amount: 500000,
-    date: '09/02/2021'
-},{
-    id: 3,
-    description: 'Net',
-    amount: -20000,
-    date: '09/02/2021'
-}]
 
 const Transaction = {
     incomes() { //somar as entradas
@@ -60,6 +44,7 @@ const getMonthList = {
             ul.innerHTML = this.elementHTML(listOfMonths)
 
         this.monthListContainer.appendChild(ul)
+        this.setMonthForm(listOfMonths)
     },
     elementHTML(listOfMonths) {
 
@@ -86,6 +71,40 @@ const getMonthList = {
             const elements = document.getElementById(month) 
             elements.classList.remove('active-month')
         })
+    },
+    setMonthForm(listOfMonths) {
+        const newMonthForm = document.querySelector('#month-form')
+        newMonthForm.addEventListener('submit', e => {
+            e.preventDefault()
+            const newMonthInput = document.querySelector('#month-input')
+
+            const monthForm = newMonthInput.value
+            if (monthForm === null || monthForm === "") return
+            const newMonth = this.createMonth(monthForm)
+            newMonthInput.value = null
+            listOfMonths.push(newMonth)
+            this.addList(listOfMonths)
+        })
+    },
+    createMonth(monthForm) {
+        return [monthForm, 
+                    transactions = [{
+            id: 1,
+            description: 'Luz',
+            amount: -50000,
+            date: '09/02/2021'
+        },{
+            id: 2,
+            description: 'website',
+            amount: 500000,
+            date: '09/02/2021'
+        },{
+            id: 3,
+            description: 'Net',
+            amount: -20000,
+            date: '09/02/2021'
+        }]
+    ]
     }
 }
 
