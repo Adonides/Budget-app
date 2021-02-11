@@ -43,8 +43,9 @@ const getMonthList = {
             ul.classList.add("all-months")
             ul.innerHTML = this.elementHTML(listOfMonths)
 
-        this.monthListContainer.appendChild(ul)
-        this.setMonthForm(listOfMonths)
+            this.setMonthForm(listOfMonths)
+            this.monthListContainer.appendChild(ul)
+        
     },
     elementHTML(listOfMonths) {
 
@@ -109,3 +110,30 @@ const getMonthList = {
 }
 
 getMonthList.addList(listOfMonths)
+
+/*TRANSACTIONS==========================================*/
+const DOM = {
+    addTransaction(monthTransaction, index) {
+        console.log( monthTransaction)
+        const transaction = monthTransaction.indexOf([1])
+        console.log( transaction)
+        const tr = document.createElement('tr')
+        tr.innerHTML = this.innerHTMLTransaction()
+    },
+
+    innerHTMLTransaction() {
+
+        const transactionHTML =  `
+            
+                <td class="description">Luz</td> 
+                <td class="expense">- R$ 500,00</td>
+                <td class="date">23/01/2021</td>
+                <td><img src="../logo-32x32.png" alt="delete transaction"></td>
+            
+        `
+        return transactionHTML
+    }
+}
+
+
+DOM.addTransaction(listOfMonths)
