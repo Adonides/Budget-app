@@ -18,9 +18,10 @@ const Modal = {
     }
 }
 
-/*Display==========================================*/
+const listOfMonths = ["April 2020", "May 2020", "June 2020", "July 2020"]
 
-const Transaction = {
+/*Display==========================================*/
+const getTransaction = {
     incomes() { //somar as entradas
 
     },
@@ -29,12 +30,13 @@ const Transaction = {
     },
     total() { //entradas - saídas
 
+    },
+    updateBalance() { //Dispalay Balanço atual
+
     }
 }
 
 /*MONTH LIST==========================================*/
-const listOfMonths = ["April", "May", "June", "July"]
-
 const getMonthList = {
 
     monthListContainer: document.querySelector('#month-list'),
@@ -82,14 +84,24 @@ const getMonthList = {
             const monthForm = newMonthInput.value
             if (monthForm === null || monthForm === "") return
             const newMonth = this.createMonth(monthForm)
+            
+            newMonth.transactions.forEach(transaction => {
+                getTable.addTransaction(transaction)
+            })
+
             newMonthInput.value = null
-            listOfMonths.push(newMonth)
+            listOfMonths.push(newMonth.month)
             this.addList(listOfMonths)
+
+            getTransaction.incomes(newMonth.transactions)
+            getTransaction.expenses(newMonth.transactions)
+
+            getStartApp.reload()
         })
     },
-    createMonth(monthForm) {
-        return [monthForm, 
-                    transactions = [{
+    createMonth(month) {
+        return {month, 
+                    transactions: [{
             id: 1,
             description: 'Luz',
             amount: -50000,
@@ -105,35 +117,73 @@ const getMonthList = {
             amount: -20000,
             date: '09/02/2021'
         }]
-    ]
+        }
+    },
+    clearMonthList(){
+        this.monthListContainer.innerHTML = ""
     }
 }
-
-getMonthList.addList(listOfMonths)
-
 /*TRANSACTIONS==========================================*/
-const DOM = {
-    addTransaction(monthTransaction, index) {
-        console.log( monthTransaction)
-        const transaction = monthTransaction.indexOf([1])
-        console.log( transaction)
+const getTable = {
+    transactionsContainer: document.querySelector('#data-table tbody'),
+    addTransaction(transactions, index) {
+
         const tr = document.createElement('tr')
-        tr.innerHTML = this.innerHTMLTransaction()
+        tr.innerHTML = this.innerHTMLTransaction(transactions)
+        
+
+        this.transactionsContainer.appendChild(tr)
+
     },
 
-    innerHTMLTransaction() {
+    innerHTMLTransaction(transactions) {
+        
+        const addClass = transactions.amount > 0 ? "income" : "expense"
+
+        const amount = getFormatting.formatCurrency(transactions.amount)
+        
 
         const transactionHTML =  `
             
-                <td class="description">Luz</td> 
-                <td class="expense">- R$ 500,00</td>
-                <td class="date">23/01/2021</td>
-                <td><img src="../logo-32x32.png" alt="delete transaction"></td>
+            <td class="description">${transactions.description}</td> 
+            <td class="${addClass}">${amount}</td>
+            <td class="date">${transactions.date}</td>
+            <td><img src="./Images/minus.svg" alt="delete transaction"></td>
             
         `
         return transactionHTML
     }
 }
 
+const getFormatting = {
+    formatCurrency(value) {
+        const sign = Number(value) < 0 ? "-" : ""
 
-DOM.addTransaction(listOfMonths)
+        value = String(value).replace(/\D/g, "")
+
+        value = Number(value) / 100
+
+        value = value.toLocaleString("pt-PT", {
+            style: "currency",
+            currency: "EUR"
+        })
+        return sign + value
+    }
+}
+
+const getStartApp = {
+    init() {
+        getMonthList.addList(listOfMonths)
+
+        getTransaction.updateBalance()
+    },
+    reload() {
+        getMonthList.clearMonthList()
+
+        this.init()
+    }
+}
+
+
+
+getStartApp.init()
