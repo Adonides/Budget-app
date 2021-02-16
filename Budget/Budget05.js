@@ -18,10 +18,8 @@ const Modal = {
     }
 }
 
-const listOfMonths = ["April 2020", "May 2020", "June 2020", "July 2020"]
-
 /*Display==========================================*/
-const getTransaction = {
+const Transaction = {
     incomes() { //somar as entradas
 
     },
@@ -37,8 +35,8 @@ const getTransaction = {
 }
 
 /*MONTH LIST==========================================*/
-const getMonthList = {
-
+const MonthList = {
+    Months: [],
     monthListContainer: document.querySelector('#month-list'),
     addList(listOfMonths) { 
             const ul = document.createElement('ul')
@@ -54,7 +52,7 @@ const getMonthList = {
         let listHTML = "" 
         listOfMonths.map((month) => {
             listHTML += `
-            <li class="month" id="${month}" onclick="getMonthList.setActiveMonth('${month}')">${month}</li>
+            <li class="month" id="${month}" onclick="MonthList.setActiveMonth('${month}')">${month}</li>
             `
         }) 
         return listHTML
@@ -63,11 +61,11 @@ const getMonthList = {
         const activeMonth = document.getElementById(month)  
         activeMonth.classList.add("active-month")
 
-        const months = [...listOfMonths]
+        const months = [...MonthList.Months]
         const index = months.indexOf(month)
         months.splice(index, 1)
 
-        getMonthList.desactiveMonths(months)
+        MonthList.desactiveMonths(months)
     },
     desactiveMonths(months) {
         months.forEach((month) => {
@@ -86,17 +84,17 @@ const getMonthList = {
             const newMonth = this.createMonth(monthForm)
             
             newMonth.transactions.forEach(transaction => {
-                getTable.addTransaction(transaction)
+                Table.addTransaction(transaction)
             })
 
             newMonthInput.value = null
             listOfMonths.push(newMonth.month)
             this.addList(listOfMonths)
 
-            getTransaction.incomes(newMonth.transactions)
-            getTransaction.expenses(newMonth.transactions)
+            Transaction.incomes(newMonth.transactions)
+            Transaction.expenses(newMonth.transactions)
 
-            getStartApp.reload()
+            BudgetApp.reload()
         })
     },
     createMonth(month) {
@@ -124,7 +122,7 @@ const getMonthList = {
     }
 }
 /*TRANSACTIONS==========================================*/
-const getTable = {
+const Table = {
     transactionsContainer: document.querySelector('#data-table tbody'),
     addTransaction(transactions, index) {
 
@@ -140,7 +138,7 @@ const getTable = {
         
         const addClass = transactions.amount > 0 ? "income" : "expense"
 
-        const amount = getFormatting.formatCurrency(transactions.amount)
+        const amount = Formatation.formatCurrency(transactions.amount)
         
 
         const transactionHTML =  `
@@ -155,7 +153,7 @@ const getTable = {
     }
 }
 
-const getFormatting = {
+const Formatation = {
     formatCurrency(value) {
         const sign = Number(value) < 0 ? "-" : ""
 
@@ -171,14 +169,14 @@ const getFormatting = {
     }
 }
 
-const getStartApp = {
+const BudgetApp = {
     init() {
-        getMonthList.addList(listOfMonths)
+        MonthList.addList(MonthList.Months)
 
-        getTransaction.updateBalance()
+        Transaction.updateBalance()
     },
     reload() {
-        getMonthList.clearMonthList()
+        MonthList.clearMonthList()
 
         this.init()
     }
@@ -186,4 +184,4 @@ const getStartApp = {
 
 
 
-getStartApp.init()
+BudgetApp.init()
