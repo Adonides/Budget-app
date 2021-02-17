@@ -159,6 +159,7 @@ h2{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 4rem;
 }
 
 .transaction-month h3 {
@@ -295,7 +296,6 @@ h2{
     display: flex;
     justify-content: center;
     color: var(--light-green);
-    margin-left: -3rem;
 }
 
 #transfer {

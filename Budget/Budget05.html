@@ -96,6 +96,7 @@
                             placeholder="Ex: January 2000">
                         <button class="btn-month" aria-label="add new month">+</button>
                     </div>
+                    <a href="#" class="new delete-transactions" onclick="Monthlist.deleteMonth()">- Delete Selected Period</a>
                 </form>
             </div>
         </Section>   
@@ -107,11 +108,9 @@
 
             <div class="btns-new-delete">
                 <a href="#" class="new btn-transaction " onclick="Modal.open()">+ New Transaction</a>
-    
-                <a href="#" class="new delete-transactions" onclick="deleteMonth()">- Delete all Transactions</a>
             </div>
         <!------------------------TABELA-------------------------------->
-            <h3 class="month-table">May</h3>
+            <h3 id="month-title" class="month-table">May</h3>
             <table id="data-table">
                 <thead>
                     <tr>
