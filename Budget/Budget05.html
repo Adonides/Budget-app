@@ -6,7 +6,7 @@
     <link rel="shortcut icon" href="./Images/favicon.ico" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;700;900&display=swap" rel="stylesheet">
-    <title>Praticando</title>
+    <title>Budget 05</title>
     <link rel="stylesheet" href="Budget05.css">
     <script defer src="Budget05.js"></script>
 </head>
@@ -15,7 +15,7 @@
     <nav class="navbar">
         <div class="logo">
             <p>
-                <a href="#">
+                <a href="../Portfolio/Portfolio.html" rel="prev">
                     <img src="./Images/logo-32x32.png" alt="Logo WeB Projests">
                     WeB.ProJEct$
                 </a>
@@ -54,37 +54,37 @@
                 <div class="card">
                     <h3>
                         <span>Income</span>
-                        <img src="./Images/income.svg" alt="income icon">
+                        <img src="./Images/income.svg" alt="Positive icon">
                     </h3>
-                    <p id="incomeDisplay">5.000,00</p>
+                    <p id="incomeDisplay">0,00 &euro;</p>
                 </div>
                 <div class="card">
                     <h3>
                         <span>Expenses</span>
-                        <img src="./Images/expense.svg" alt="expense icon">
+                        <img src="./Images/expense.svg" alt="Negative icon">
                     </h3>
-                    <p id="expenseDisplay">3.000,00</p>
+                    <p id="expenseDisplay">0,00 &euro;</p>
                 </div>
                 <div class="card total">
                     <h3>
                         <span>Total</span>
-                        <img src="./Images/total.svg" alt="total icon">
+                        <img src="./Images/total.svg" alt="">
                     </h3>
-                    <p id="totalDisplay">2.000,00</p>
+                    <p id="totalDisplay">0,00 &euro;</p>
                 </div>
         </section>
         <!------------------------MONTH-------------------------------->
         <Section id="months">
             <div class="transaction-month">
                 <h2 class="sr-only">Period</h2>
-                <h3>Period Of Transaction</h3>
+                <h3>Month Of Transaction</h3>
 
                 <div id="month-list">
-                   <!-- <ul class="all-months">
+                    <ul id="list" class="all-months">
                         <li class="month active-month">January</li>
                         <li class="month">Febrery</li>
-                        <li class="month">March</li>
-                    </ul> -->
+                        <li class="month">March</li> 
+                    </ul> 
                 </div>
     
                 <form action="" id="month-form" class="form-month">
@@ -93,11 +93,11 @@
                         <input type="text" 
                             id="month-input"
                             class="new-month"
-                            placeholder="Ex: January 2000">
+                            placeholder="Add a new month">
                         <button class="btn-month" aria-label="add new month">+</button>
                     </div>
-                    <a href="#" class="new delete-transactions" onclick="Monthlist.deleteMonth()">- Delete Selected Period</a>
                 </form>
+                <a href="#" class="new delete-transactions" onclick="MonthList.deleteMonth()">- Delete Period of Transaction</a>
             </div>
         </Section>   
         <!------------------------MODAL-BTN-------------------------------->
@@ -108,9 +108,10 @@
 
             <div class="btns-new-delete">
                 <a href="#" class="new btn-transaction " onclick="Modal.open()">+ New Transaction</a>
+    
             </div>
         <!------------------------TABELA-------------------------------->
-            <h3 id="month-title" class="month-table">May</h3>
+            <h3 id="table-title" class="month-table"></h3>
             <table id="data-table">
                 <thead>
                     <tr>
@@ -125,26 +126,20 @@
                         <td class="description">Luz</td> 
                         <td class="expense">- R$ 500,00</td>
                         <td class="date">23/01/2021</td>
-                        <td>
-                            <img src="./Images/minus.svg" alt="delete button">
-                        </td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td class="description">Criação website</td>
                         <td class="income">R$ 5.000,00</td>
                         <td class="date">23/01/2021</td>
-                        <td>
-                            <img src="./Images/minus.svg" alt="delete button">
-                        </td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td class="description">Internet</td>
                         <td class="expense">R$ 200,00</td>
                         <td class="date">23/01/2021</td>
-                        <td>
-                            <img src="./Images/minus.svg" alt="delete button">
-                        </td>
-                    </tr>-->
+                        <td></td>
+                    </tr> -->
                         
                 </tbody>
             </table>
@@ -208,7 +203,5 @@
             &copy;WeB.ProJEct$
         </p>
     </footer>
-    
-    
 </body>
 </html>  

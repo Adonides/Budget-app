@@ -1,4 +1,3 @@
-
 /*NAVBAR==========================================*/
 function toggleBtn(){
     const navbarList = document.getElementsByClassName('navbar-list')[0]
@@ -18,19 +17,19 @@ const Modal = {
     }
 }
 
-/*LOCAL STORAGE==========================================*/
+/*STORAGE==========================================*/
 const MonthStorage = {
-    STORAGE_BUDGET_KEY_01: "AA_Web_Projects_Budget",
-    LOCAL_SELECTED_MONTH_01: "Selected_Period",
+    LOCAL_STORAGE_BUDGET_05: "AA_Web_Projects_Budget_05",
+    LOCAL_SELECTED_MONTH_05: "AA_Web_Projects_Selected_05",
     getList() {
-        return JSON.parse(localStorage.getItem(this.STORAGE_BUDGET_KEY_01)) || []
+        return JSON.parse(localStorage.getItem(this.LOCAL_STORAGE_BUDGET_05)) || []
     },
     getSelected() {
-        return JSON.parse(localStorage.getItem(this.LOCAL_SELECTED_MONTH_01)) 
+        return JSON.parse(localStorage.getItem(this.LOCAL_SELECTED_MONTH_05))
     },
     save() {
-        localStorage.setItem(this.STORAGE_BUDGET_KEY_01, JSON.stringify(Transaction.all))
-        localStorage.setItem(this.LOCAL_SELECTED_MONTH_01, JSON.stringify(Transaction.monthSelected))
+        localStorage.setItem(this.LOCAL_STORAGE_BUDGET_05, JSON.stringify(Transaction.all))
+        localStorage.setItem(this.LOCAL_SELECTED_MONTH_05, JSON.stringify(Transaction.monthSelected))
         /*Se deseja salvar a seleção do mês*/
     },
     saveAndRender() {
@@ -39,32 +38,44 @@ const MonthStorage = {
     }
 }
 
+
+
 /*Display==========================================*/
 const Transaction = {
     all: MonthStorage.getList(),
     monthSelected: MonthStorage.getSelected(),
-    incomes(transactions) {
-        
-        let income = 0
 
-        transactions.forEach(transaction => {
+    incomes() {
+        const selectedMonth = Transaction.all.find(list => list.id === Transaction.monthSelected)
+        
+        if (Transaction.monthSelected == null) {
+            return
+        } else {
+            let income = 0
+
+        selectedMonth.transactions.forEach(transaction => {
             if (transaction.amount > 0) {
                 income += transaction.amount
             }
         })
-       
         return income
+        }
     },
-    expenses(transactions) { 
-        let expense = 0
+    expenses() {
+        const selectedMonth = Transaction.all.find(list => list.id === Transaction.monthSelected) 
+        
+        if (Transaction.monthSelected == null) {
+            return
+        } else {
+            let expense = 0
 
-        transactions.forEach(transaction => {
+        selectedMonth.transactions.forEach(transaction => {
             if (transaction.amount < 0) {
                 expense += transaction.amount
             }
         })
-
         return expense
+        }     
     },
     total() { 
         return this.incomes() + this.expenses()
@@ -72,13 +83,13 @@ const Transaction = {
     updateBalance(){
         document
             .querySelector('#incomeDisplay')
-            .innerText = ""
+            .innerText = Formation.formatCurrency(this.incomes())
         document
             .querySelector('#expenseDisplay')
-            .innerText = "cheguei"
+            .innerText = Formation.formatCurrency(this.expenses())
         document
             .querySelector('#totalDisplay')
-            .innerText = "aqui"
+            .innerText = Formation.formatCurrency(this.total())
 
     }
 
@@ -129,7 +140,7 @@ const MonthList = {
             Transaction.all.push(newMonth)
             MonthStorage.saveAndRender()
 
-            BudgetApp.reload()
+            
         })
     },
     createMonth(monthName) {
@@ -149,11 +160,14 @@ const MonthList = {
                 description: 'Net',
                 amount: -20000,
                 date: '09/02/2021'
+            },{
+                id: 4,
+                description: 'Budget App',
+                amount: 200000,
+                date: '21/02/2021'
             }] }
     },
-    clearMonthList(){
-        this.ListContainer.innerText = ""
-    },
+    
     deleteMonth() {
         Transaction.all = Transaction.all.filter(list => list.id !== Transaction.monthSelected)
         Transaction.monthSelected = null
@@ -162,10 +176,12 @@ const MonthList = {
 }
     
 /*TRANSACTIONS TABLE==========================================*/
+const selectedMonth = Transaction.all.find(list => list.id === Transaction.monthSelected)
+
 const TheTable = {
     transactionsContainer: document.querySelector('#data-table tbody'),
-    addTransaction(transactions, index) {
-        console.log(transactions)
+    addTable(transactions, index) {
+        
         
         const tr = document.createElement('tr')
         tr.innerHTML = this.innerHTMLTransaction(transactions)
@@ -191,6 +207,16 @@ const TheTable = {
             
         `
         return transactionHTML
+    },
+    addNewTransaction(newTransaction){
+        selectedMonth.transactions.push(newTransaction)
+
+            BudgetApp.reload()
+    },
+    removeTransaction(index) {
+        selectedMonth.transactions.splice(index, 1)
+
+        BudgetApp.reload()
     }
 }
 
@@ -221,7 +247,7 @@ const BudgetApp = {
 
         MonthList.setMonthForm()
 
-        const selectedMonth = Transaction.all.find(list => list.id === Transaction.monthSelected)
+        
         if (Transaction.monthSelected == null) {
             tableDisplay.style.display = 'none'
         } else {
@@ -230,16 +256,20 @@ const BudgetApp = {
 
             MonthList.clearElementHTML(TheTable.transactionsContainer)
             selectedMonth.transactions.forEach(transaction => { 
-                TheTable.addTransaction(transaction)
+                TheTable.addTable(transaction)
             })
             
+
+            Transaction.updateBalance()
+
         }
     },
     reload() {
-        MonthList.clearMonthList()
+        
 
         this.renderList()
     }
 }  
    
 BudgetApp.renderList()
+
