@@ -83,13 +83,13 @@ const Transaction = {
     updateBalance(){
         document
             .querySelector('#incomeDisplay')
-            .innerText = Formation.formatCurrency(this.incomes())
+            .innerText = Formatation.formatCurrency(this.incomes())
         document
             .querySelector('#expenseDisplay')
-            .innerText = Formation.formatCurrency(this.expenses())
+            .innerText = Formatation.formatCurrency(this.expenses())
         document
             .querySelector('#totalDisplay')
-            .innerText = Formation.formatCurrency(this.total())
+            .innerText = Formatation.formatCurrency(this.total())
 
     }
 
@@ -184,18 +184,18 @@ const TheTable = {
         
         
         const tr = document.createElement('tr')
-        tr.innerHTML = this.innerHTMLTransaction(transactions)
-        
+        tr.innerHTML = this.innerHTMLTransaction(transactions, index)
+        tr.dataset.index = index
 
         this.transactionsContainer.appendChild(tr)
 
     },
 
-    innerHTMLTransaction(transactions) {
+    innerHTMLTransaction(transactions, index) {
         
         const addClass = transactions.amount > 0 ? "income" : "expense"
 
-        const amount = Formation.formatCurrency(transactions.amount)
+        const amount = Formatation.formatCurrency(transactions.amount)
         
 
         const transactionHTML =  `
@@ -203,7 +203,7 @@ const TheTable = {
             <td class="description">${transactions.description}</td> 
             <td class="${addClass}">${amount}</td>
             <td class="date">${transactions.date}</td>
-            <td><img src="./Images/minus.svg" alt="delete transaction"></td>
+            <td><img onclick="TheTable.removeTransaction(${index})" src="./Images/minus.svg" alt="delete transaction"></td>
             
         `
         return transactionHTML
@@ -220,7 +220,7 @@ const TheTable = {
     }
 }
 
-const Formation = {
+const Formatation = {
     formatCurrency(value) {
         const sign = Number(value) < 0 ? "-" : ""
 
@@ -233,6 +233,75 @@ const Formation = {
             currency: "EUR"
         })
         return sign + value
+    },
+    formatAmount(value) {
+        value = Number(value) * 100
+
+        return value
+    },
+    formatDate(date) {
+        const dots = date.split("-")
+        //A norma portuguesa impõe a grafia do ano em primeiro lugar
+        return `${dots[0]}.${dots[1]}.${dots[2]}`
+    }
+}
+
+const ModalForm = {
+    description: document.querySelector('input#description'),
+    amount: document.querySelector('input#amount'),
+    date: document.querySelector('input#date'),
+
+    getValues() {
+        return {
+            description: ModalForm.description.value,
+            amount: ModalForm.amount.value,
+            date: ModalForm.date.value
+        }
+    },
+    validateFields() {
+        const { description, amount, date } = ModalForm.getValues()
+        
+        if (    description.trim() === "" ||
+                amount.trim() === "" ||
+                date.trim() === "" ) {
+                    throw new Error("Please, fill all fields")
+                }
+    },
+    formatFields() {
+        let { description, amount, date } = ModalForm.getValues()
+
+        amount = Formatation.formatAmount(amount)
+
+        date = Formatation.formatDate(date)
+
+        return {
+            description,
+            amount,
+            date
+        }
+    },
+    clearFields() {
+        ModalForm.description.value = ""
+        ModalForm.amount.value = ""
+        ModalForm.date.value = ""
+    },
+    submit(event) {
+        event.preventDefault()
+
+        try {
+            ModalForm.validateFields()
+
+            const newTransaction = ModalForm.formatFields()
+
+            TheTable.addNewTransaction(newTransaction)
+
+            ModalForm.clearFields() 
+
+            Modal.close()
+        } catch (error) {
+            alert(error.message)
+        }
+
     }
 }
 
@@ -247,7 +316,7 @@ const BudgetApp = {
 
         MonthList.setMonthForm()
 
-        
+        const selectedMonth = Transaction.all.find(list => list.id === Transaction.monthSelected)
         if (Transaction.monthSelected == null) {
             tableDisplay.style.display = 'none'
         } else {
@@ -255,8 +324,9 @@ const BudgetApp = {
             tableTitle.innerText = selectedMonth.month
 
             MonthList.clearElementHTML(TheTable.transactionsContainer)
-            selectedMonth.transactions.forEach(transaction => { 
-                TheTable.addTable(transaction)
+
+            selectedMonth.transactions.forEach((transaction, index) => { 
+                TheTable.addTable(transaction, index)
             })
             
 
@@ -272,4 +342,3 @@ const BudgetApp = {
 }  
    
 BudgetApp.renderList()
-
