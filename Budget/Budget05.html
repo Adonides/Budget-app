@@ -21,7 +21,7 @@
                 </a>
             </p>
         </div>
-        <a href="#" class="toggle-bar" onclick="toggleBtn()">
+        <a href="#" class="toggle-bar" onclick="NavBar.toggleBtn()">
             <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
@@ -77,7 +77,7 @@
         <Section id="months">
             <div class="transaction-month">
                 <h2 class="sr-only">Period</h2>
-                <h3>Month Of Transaction</h3>
+                <h3>Transactions List/Period</h3>
 
                 <div id="month-list">
                     <ul id="list" class="all-months">
@@ -89,11 +89,11 @@
     
                 <form action="" id="month-form" class="form-month">
                     <div class="input-month">
-                        <label for="period per month" class="sr-only">Period per Month</label>
+                        <label for="period per month" class="sr-only">Period </label>
                         <input type="text" 
                             id="month-input"
                             class="new-month"
-                            placeholder="Add a new month">
+                            placeholder="Add a list or Period">
                         <button class="btn-month" aria-label="add new month">+</button>
                     </div>
                 </form>
@@ -150,7 +150,7 @@
         <div class="modal">
              <div id="form">
                 <h2>New Transaction</h2>
-                 <form action="" onsubmit="Form.submit(event)">
+                 <form action="" onsubmit="ModalForm.submit(event)">
 
                     
 

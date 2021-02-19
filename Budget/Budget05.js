@@ -1,7 +1,9 @@
 /*NAVBAR==========================================*/
-function toggleBtn(){
-    const navbarList = document.getElementsByClassName('navbar-list')[0]
-    navbarList.classList.toggle('active')
+const NavBar = {
+     toggleBtn(){
+        const navbarList = document.getElementsByClassName('navbar-list')[0]
+        navbarList.classList.toggle('active')
+    }
 }
   
 /*MODAL==========================================*/
@@ -19,20 +21,17 @@ const Modal = {
 
 /*STORAGE==========================================*/
 const MonthStorage = {
-    LOCAL_STORAGE_BUDGET_05: "AA_Web_Projects_Budget_05",
-    LOCAL_SELECTED_MONTH_05: "AA_Web_Projects_Selected_05",
+    LOCAL_STORAGE_BUDGET05: "AA_Web_Projects_Budget05",
+    LOCAL_SELECTED_MONTH05: "AA_Web_Projects_Selected05",
     getList() {
-        return JSON.parse(localStorage.getItem(this.LOCAL_STORAGE_BUDGET_05)) || []
+        return JSON.parse(localStorage.getItem(this.LOCAL_STORAGE_BUDGET05)) || []
     },
     getSelected() {
-        return JSON.parse(localStorage.getItem(this.LOCAL_SELECTED_MONTH_05))
-    },
-    getTransactions() {
-
+        return JSON.parse(localStorage.getItem(this.LOCAL_SELECTED_MONTH05))
     },
     save() {
-        localStorage.setItem(this.LOCAL_STORAGE_BUDGET_05, JSON.stringify(Transaction.all))
-        localStorage.setItem(this.LOCAL_SELECTED_MONTH_05, JSON.stringify(Transaction.monthSelected))
+        localStorage.setItem(this.LOCAL_STORAGE_BUDGET05, JSON.stringify(Transaction.all))
+        localStorage.setItem(this.LOCAL_SELECTED_MONTH05, JSON.stringify(Transaction.monthSelected))
         /*Se deseja salvar a seleção do mês*/
     },
     saveAndRender() {
@@ -143,27 +142,7 @@ const MonthList = {
     },
     createMonth(monthName) {
         return {id: Date.now().toString(), month: monthName, 
-            transactions: [{
-                id: 1,
-                description: 'Luz',
-                amount: -50000,
-                date: '09/02/2021'
-            },{
-                id: 2,
-                description: 'website',
-                amount: 500000,
-                date: '09/02/2021'
-            },{
-                id: 3,
-                description: 'Net',
-                amount: -20000,
-                date: '09/02/2021'
-            },{
-                id: 4,
-                description: 'Budget App',
-                amount: 200000,
-                date: '21/02/2021'
-            }] }
+            transactions: [] }
     },
     deleteMonth() {
         Transaction.all = Transaction.all.filter(list => list.id !== Transaction.monthSelected)
@@ -174,7 +153,7 @@ const MonthList = {
     
  
 /*TRANSACTIONS TABLE==========================================*/
-let selectedMonth = Transaction.all.find(list => list.id === Transaction.monthSelected)
+var selectedMonth = Transaction.all.find(list => list.id === Transaction.monthSelected)
 
 const TheTable = {
     transactionsContainer: document.querySelector('#data-table tbody'),
@@ -257,7 +236,7 @@ const ModalForm = {
         }
     },
     validateFields() {
-
+       
         const { description, amount, date } = ModalForm.getValues()
         
         if (    description.trim() === "" ||
@@ -315,7 +294,7 @@ const BudgetApp = {
 
         MonthList.setMonthForm()
 
-        
+        let selectedMonth = Transaction.all.find(list => list.id === Transaction.monthSelected)
         if (Transaction.monthSelected == null) {
             tableDisplay.style.display = 'none'
         } else {
