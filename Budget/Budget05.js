@@ -27,6 +27,9 @@ const MonthStorage = {
     getSelected() {
         return JSON.parse(localStorage.getItem(this.LOCAL_SELECTED_MONTH_05))
     },
+    getTransactions() {
+
+    },
     save() {
         localStorage.setItem(this.LOCAL_STORAGE_BUDGET_05, JSON.stringify(Transaction.all))
         localStorage.setItem(this.LOCAL_SELECTED_MONTH_05, JSON.stringify(Transaction.monthSelected))
@@ -37,8 +40,6 @@ const MonthStorage = {
         BudgetApp.renderList()
     }
 }
-
-
 
 /*Display==========================================*/
 const Transaction = {
@@ -92,7 +93,6 @@ const Transaction = {
             .innerText = Formatation.formatCurrency(this.total())
 
     }
-
 }
 
 /*MONTH LIST==========================================*/
@@ -139,8 +139,6 @@ const MonthList = {
             monthInput.value = null
             Transaction.all.push(newMonth)
             MonthStorage.saveAndRender()
-
-            
         })
     },
     createMonth(monthName) {
@@ -167,7 +165,6 @@ const MonthList = {
                 date: '21/02/2021'
             }] }
     },
-    
     deleteMonth() {
         Transaction.all = Transaction.all.filter(list => list.id !== Transaction.monthSelected)
         Transaction.monthSelected = null
@@ -175,8 +172,9 @@ const MonthList = {
     }
 }
     
+ 
 /*TRANSACTIONS TABLE==========================================*/
-const selectedMonth = Transaction.all.find(list => list.id === Transaction.monthSelected)
+let selectedMonth = Transaction.all.find(list => list.id === Transaction.monthSelected)
 
 const TheTable = {
     transactionsContainer: document.querySelector('#data-table tbody'),
@@ -259,6 +257,7 @@ const ModalForm = {
         }
     },
     validateFields() {
+
         const { description, amount, date } = ModalForm.getValues()
         
         if (    description.trim() === "" ||
@@ -316,7 +315,7 @@ const BudgetApp = {
 
         MonthList.setMonthForm()
 
-        const selectedMonth = Transaction.all.find(list => list.id === Transaction.monthSelected)
+        
         if (Transaction.monthSelected == null) {
             tableDisplay.style.display = 'none'
         } else {
@@ -342,3 +341,4 @@ const BudgetApp = {
 }  
    
 BudgetApp.renderList()
+
