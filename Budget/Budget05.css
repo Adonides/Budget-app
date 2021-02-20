@@ -113,6 +113,12 @@ h2{
     font-weight: normal;
 }
 
+h3 {
+    margin-bottom: 0.5rem;
+    margin-left: 1rem;
+    font-weight: 300;
+}
+
 .sr-only {
     position: absolute;
     width: 1px;
@@ -312,7 +318,7 @@ h2{
     width: 100%;
     border-spacing: 0 0.5rem;
     color: #969cb3;
-    
+    margin-bottom: 3.5rem;
     
 }
 
@@ -437,6 +443,44 @@ input {
 .input-group.actions button {
     width: 48%;
 }
+
+/*ABOUT=================================================*/
+.about {
+    position: relative;
+    width: 100%;
+    background-color: white;
+}
+
+.about h2 {
+    margin-top: 2rem;
+    color: var(--dark-green);
+    font-size: 1rem;
+}
+
+.about-budget {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-it {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+.budget-img {
+    margin: 1rem 6rem;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5;
+}
+
 
 /*FOOTER==============================================*/
 footer {
