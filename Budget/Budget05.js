@@ -44,6 +44,12 @@ const MonthStorage = {
 const Transaction = {
     all: MonthStorage.getList(),
     monthSelected: MonthStorage.getSelected(),
+    
+    inMonth: () => 
+        // { return Transaction.all.find((list) => list.id === Transaction.monthSelected) }
+
+        Transaction.all.find((list) => list.id === Transaction.monthSelected),
+    
 
     incomes() {
         const selectedMonth = Transaction.all.find(list => list.id === Transaction.monthSelected)
@@ -151,10 +157,7 @@ const MonthList = {
     }
 }
     
- 
 /*TRANSACTIONS TABLE==========================================*/
-var selectedMonth = Transaction.all.find(list => list.id === Transaction.monthSelected)
-
 const TheTable = {
     transactionsContainer: document.querySelector('#data-table tbody'),
     addTable(transactions, index) {
@@ -186,12 +189,12 @@ const TheTable = {
         return transactionHTML
     },
     addNewTransaction(newTransaction){
-        selectedMonth.transactions.push(newTransaction)
+        Transaction.inMonth().transactions.push(newTransaction)
 
             BudgetApp.reload()
     },
     removeTransaction(index) {
-        selectedMonth.transactions.splice(index, 1)
+        Transaction.inMonth().transactions.splice(index, 1)
 
         BudgetApp.reload()
     }
@@ -305,12 +308,14 @@ const BudgetApp = {
 
             selectedMonth.transactions.forEach((transaction, index) => { 
                 TheTable.addTable(transaction, index)
+
             })
             
 
             Transaction.updateBalance()
 
         }
+        MonthStorage.save()
     },
     reload() {
         
