@@ -36,6 +36,9 @@ li, a {
 
 /*NAVBAR==============================================*/
 .navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -43,6 +46,7 @@ li, a {
    
     background-color: var(--dark-green);
     color: white;
+    z-index: 1;
 }
 
 /*Logo==============================================*/
@@ -99,7 +103,7 @@ h1 {
     text-align: center;
     font-weight: 900;
     letter-spacing: 10px;
-    margin-top: -1.3rem;
+    margin-top: 1.6rem;
     margin-bottom: 0.5rem;
     color: rgb(0, 0, 0, 0.1)
 }
@@ -475,6 +479,10 @@ footer {
 @media (min-width: 625px) {
     html {
         font-size: 87.5%;
+    }
+
+    h1 {
+        margin-top: 3.2rem;
     }
 
     #statement {
