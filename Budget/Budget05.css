@@ -11,6 +11,7 @@
     --light-green: #49AA26;
     --dark-blue: #363f5f;
     --red: #e92929;
+    --bg: rgb(221, 219, 219);
 
 }
 
@@ -449,12 +450,13 @@ input {
     position: relative;
     width: 100%;
     background-color: white;
+    padding: 40px;
 }
 
 .about h2 {
-    margin-top: 2rem;
+    
     color: var(--dark-green);
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 
 .about-budget {
@@ -468,6 +470,7 @@ input {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 40px;
 }
 
 
@@ -478,9 +481,73 @@ input {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0.5;
+    padding: 1rem;
 }
 
+/*CONTACT==============================================*/
+.contact {
+    background: url("./Images/DarkKeyboard\ 1200x490.jpg") no-repeat center;
+    background-size: cover;
+    padding: 40px 0;
+}
+
+.contact h2 {
+    text-align: center;
+    color: var(--bg);
+    font-size: 40px;
+    font-weight: 600;
+    letter-spacing: 5px;
+}
+
+.contact-border {
+    width: 30%;
+    height: 10px;
+    background: var(--dark-green);
+    margin: 40px auto;
+}
+
+.contact-form {
+    max-width: 625px;
+    margin: auto;
+    padding: 0 10px;
+    overflow: hidden;
+
+}
+
+.contact-text {
+    display: block;
+    width: 100%;
+    margin: 16px 0;
+    padding: 20px 40px;
+    border: 0;
+    outline: none;
+    background: #111;
+    color: var(--bg);
+    transition: 0.6s;
+}
+
+.contact-text:focus {
+    box-shadow: 0 0 10px 4px var(--dark-green);
+}
+
+textarea {
+    resize: none;
+    height: 120px;
+}
+
+.contact-form-btn {
+   width: 20%;
+   float: right;
+   background: var(--dark-green);
+   color: var(--bg);
+   cursor: pointer;
+   transition: 0.6s ease-in;
+   
+}
+
+.contact-form-btn:hover {
+    background: var(--light-green);
+}
 
 /*FOOTER==============================================*/
 footer {
